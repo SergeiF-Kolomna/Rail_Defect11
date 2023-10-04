@@ -51,7 +51,7 @@ def calculate_dimensions(cropped_image, pixel_per_cm):
         if area > 0:
             #dimensions = area/(pixel_per_cm)**2
             dimensions = calculate_area(area, pixel_per_cm)
-            if dimensions > 0.03 and dimensions < 30.1  :  # Check if area is more than 0.05 sq.cm. and less then 30.1
+            if dimensions > 0.03 and dimensions < 30.1  :  # Check if area is more than 0.1 sq.cm. and less then 5.1
 
                 (x, y, w, h) = cv2.boundingRect(contour)
 
@@ -75,13 +75,13 @@ def mouse_callback(event, x, y, flags, param):
             frame_end = (x, y)
             temp_image = image_mini.copy()
             cv2.rectangle(temp_image, frame_start, frame_end, (255, 0, 0), 2)
-            cv2.imshow("Image", temp_image)
+            cv2.imshow("Identified defects", temp_image)
 
     elif event == cv2.EVENT_LBUTTONUP:
         frame_resizing = False
         temp_image = image_mini.copy()
         cv2.rectangle(temp_image, frame_start, frame_end, (255, 0, 0), 2)
-        cv2.imshow("Image", temp_image)
+        cv2.imshow("Identified defects", temp_image)
 
         # Set point1 and point2 when frame selection is complete
         if frame_start and frame_end:
@@ -115,12 +115,12 @@ def on_trackbar(val):
     global threshold_value, image_mini, dark_spots, LH, LS, LV, UH, US, UV, my_im, contours
 
     threshold_value = val
-    LH = cv2.getTrackbarPos("LH", "Image")
-    LS = cv2.getTrackbarPos("LS", "Image")
-    LV = cv2.getTrackbarPos("LV", "Image")
-    UH = cv2.getTrackbarPos("UH", "Image")
-    US = cv2.getTrackbarPos("US", "Image")
-    UV = cv2.getTrackbarPos("UV", "Image")
+    LH = cv2.getTrackbarPos("LH", "Identified defects")
+    LS = cv2.getTrackbarPos("LS", "Identified defects")
+    LV = cv2.getTrackbarPos("LV", "Identified defects")
+    UH = cv2.getTrackbarPos("UH", "Identified defects")
+    US = cv2.getTrackbarPos("US", "Identified defects")
+    UV = cv2.getTrackbarPos("UV", "Identified defects")
 
     if frame_start and frame_end:
         point1 = frame_start
@@ -153,8 +153,8 @@ def on_trackbar(val):
             #except:
             #    pass
 
-        cv2.imshow("Image", temp_image)
-        cv2.imshow("Image_my", my_im)
+        cv2.imshow("Identified defects", temp_image)
+        cv2.imshow("Negative", my_im)
        
 def white_balance(img):
     result = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
@@ -194,22 +194,22 @@ def main():
         dim = (width, height)
         image_mini = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
         image_mini = white_balance(image_mini)
-        cv2.namedWindow("Image")
-        cv2.setMouseCallback("Image", mouse_callback)
-        cv2.createTrackbar("Threshold", "Image", threshold_value, 255, on_trackbar)
-        cv2.createTrackbar("LH", "Image", 0, 255, on_trackbar)
-        cv2.createTrackbar("LS", "Image", 0, 255, on_trackbar)
-        cv2.createTrackbar("LV", "Image", 0, 255, on_trackbar)
-        cv2.createTrackbar("UH", "Image", 0, 255, on_trackbar)
-        cv2.createTrackbar("US", "Image", 0, 255, on_trackbar)
-        cv2.createTrackbar("UV", "Image", 0, 255, on_trackbar)
+        cv2.namedWindow("Identified defects")
+        cv2.setMouseCallback("Identified defects", mouse_callback)
+        cv2.createTrackbar("Threshold", "Identified defects", threshold_value, 255, on_trackbar)
+        cv2.createTrackbar("LH", "Identified defects", 0, 255, on_trackbar)
+        cv2.createTrackbar("LS", "Identified defects", 0, 255, on_trackbar)
+        cv2.createTrackbar("LV", "Identified defects", 0, 255, on_trackbar)
+        cv2.createTrackbar("UH", "Identified defects", 0, 255, on_trackbar)
+        cv2.createTrackbar("US", "Identified defects", 0, 255, on_trackbar)
+        cv2.createTrackbar("UV", "Identified defects", 0, 255, on_trackbar)
         # Set default positions
-        cv2.setTrackbarPos('LH', 'Image', 0)
-        cv2.setTrackbarPos('LS', 'Image', 0)
-        cv2.setTrackbarPos('LV', 'Image', 0)
-        cv2.setTrackbarPos('UH', 'Image', 15)
-        cv2.setTrackbarPos('US', 'Image', 90)
-        cv2.setTrackbarPos('UV', 'Image', 230)
+        cv2.setTrackbarPos('LH', 'Identified defects', 0)
+        cv2.setTrackbarPos('LS', 'Identified defects', 0)
+        cv2.setTrackbarPos('LV', 'Identified defects', 0)
+        cv2.setTrackbarPos('UH', 'Identified defects', 155)
+        cv2.setTrackbarPos('US', 'Identified defects', 200)
+        cv2.setTrackbarPos('UV', 'Identified defects', 174)
          
         window.close()
     
@@ -218,9 +218,9 @@ def main():
         ipass = 0       # variable for pass in listBox
 
         while True:
-            cv2.imshow("Image", image_mini)
+            cv2.imshow("Identified defects", image_mini)
             try:
-                cv2.imshow("Image_my", my_im)
+                cv2.imshow("Negative", my_im)
             except:
                 pass
 

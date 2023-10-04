@@ -136,9 +136,9 @@ if dark_spots:
         cv2.putText(temp_image, f"Width: {width_cm:.3f} cm", (x + frame_start[0], y + frame_start[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
         cv2.putText(temp_image, f"Height: {height_cm:.3f} cm", (x + frame_start[0], y + frame_start[1] + h + 15), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-        cv2.imshow("Image", temp_image)
+        cv2.imshow("Identified defects", temp_image)
         try:
-            cv2.imshow("temp2_image", temp2_image)
+            cv2.imshow("Result", temp2_image)
         except: pass
 
 cv2.destroyAllWindows()
